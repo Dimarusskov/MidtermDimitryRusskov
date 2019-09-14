@@ -18,6 +18,7 @@ public class CsvReader {
         String line = "";
         String cvsSplitBy = ",";
         BufferedReader br = null;
+        double sum = 0;
         List<Trainee> roster = new ArrayList<Trainee>();
 
         try {
@@ -32,11 +33,17 @@ public class CsvReader {
                 roster.add(new Trainee(name[5].replace("\"", ""), name[4].replace("\"",
                         ""), Integer.parseInt(name[10])));
 
+                sum += Integer.parseInt(name[8]);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        int numberOfStudents = roster.size();
+        double classAverage = sum / numberOfStudents;
+        System.out.printf("Average score of the class is: %.2f\n", classAverage);
+
         Collections.sort(roster);
         for(Trainee student:roster) {
             if (student.getNumberOfExercisesSolved()>=600) {
